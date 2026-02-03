@@ -30,6 +30,9 @@ logger = logging.getLogger("docker-dev-assistant")
 # Initialize MCP server
 server = Server("docker-dev-assistant")
 
+# Get the directory where this script lives
+SCRIPT_DIR = Path(__file__).parent
+
 
 def run_docker_command(args: list[str]) -> tuple[str, str, int]:
     """
@@ -126,19 +129,6 @@ async def list_tools() -> list[Tool]:
                     }
                 }
             }
-        ),
-        Tool(
-            name="read_docker_compose",
-            description="Read the contents of a docker-compose.yml file from the current directory or a specified path.",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "path": {
-                        "type": "string",
-                        "description": "Path to docker-compose.yml file (default: ./docker-compose.yml)"
-                    }
-                }
-            }
         )
     ]
 
@@ -230,36 +220,6 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             text=stdout or "No running containers to show stats for."
         )]
 
-    elif name == "read_docker_compose":
-        path = arguments.get("path", "./docker-compose.yml")
-
-        # Convert to absolute path and resolve
-        compose_path = Path(path).resolve()
-
-        if not compose_path.exists():
-            return [TextContent(
-                type="text",
-                text=f"Error: File not found at {compose_path}"
-            )]
-
-        if not compose_path.is_file():
-            return [TextContent(
-                type="text",
-                text=f"Error: {compose_path} is not a file"
-            )]
-
-        try:
-            content = compose_path.read_text()
-            return [TextContent(
-                type="text",
-                text=f"Contents of {compose_path}:\n\n{content}"
-            )]
-        except Exception as e:
-            return [TextContent(
-                type="text",
-                text=f"Error reading file: {str(e)}"
-            )]
-
     else:
         return [TextContent(
             type="text",
@@ -274,22 +234,10 @@ async def list_resources() -> list[Resource]:
     """
     List available resources.
 
-    Resources are data sources that the AI can read.
-    In this case, we expose docker-compose.yml as a resource.
+    This server doesn't expose any static resources - it connects to
+    the existing Docker daemon and provides tools to interact with it.
     """
-    resources = []
-
-    # Check if docker-compose.yml exists in current directory
-    compose_path = Path("./docker-compose.yml").resolve()
-    if compose_path.exists() and compose_path.is_file():
-        resources.append(Resource(
-            uri=f"file://{compose_path}",
-            name="docker-compose.yml",
-            mimeType="text/yaml",
-            description="Docker Compose configuration file"
-        ))
-
-    return resources
+    return []
 
 
 @server.read_resource()

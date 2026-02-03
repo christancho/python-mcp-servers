@@ -1,6 +1,6 @@
 # Docker Dev Assistant
 
-A simple MCP server that helps you manage Docker containers through natural language. Query running containers, inspect logs, monitor resource usage, and read Docker Compose configurations—all through your AI assistant.
+A simple MCP server that helps you manage Docker containers through natural language. Query running containers, inspect logs, and monitor resource usage—all through your AI assistant.
 
 ## Overview
 
@@ -8,7 +8,6 @@ This is the foundational project in the MCP examples series. It demonstrates:
 
 - **Basic MCP server structure**: How to set up and initialize an MCP server
 - **Tool implementation**: Creating callable functions with parameters
-- **Resource exposure**: Making files (like docker-compose.yml) accessible to the AI
 - **Prompt templates**: Guided workflows for common tasks (debugging)
 - **Error handling**: Gracefully handling missing dependencies and failures
 - **Subprocess management**: Safely executing Docker commands
@@ -31,15 +30,6 @@ This is the foundational project in the MCP examples series. It demonstrates:
    - CPU and memory usage for running containers
    - Network and disk I/O statistics
    - Can target specific container or show all
-
-4. **read_docker_compose** - Read Docker Compose files
-   - Parse and display docker-compose.yml
-   - Supports custom file paths
-   - Helps understand service configurations
-
-### Resources
-
-- **docker-compose.yml**: Automatically exposed as a readable resource if present in the working directory
 
 ### Prompts
 
@@ -152,12 +142,6 @@ What's the CPU and memory usage of my containers?
 Show me resource stats for the database container
 ```
 
-**Read configuration:**
-```
-Show me the docker-compose.yml file
-What services are defined in my Docker Compose setup?
-```
-
 **Debug issues:**
 ```
 Help me debug the api-server container
@@ -228,23 +212,7 @@ if name == "docker_ps":
     # Execute Docker command and return results
 ```
 
-#### 2. Resources
-
-Resources are data sources the AI can read:
-
-```python
-@server.list_resources()
-async def list_resources() -> list[Resource]:
-    return [
-        Resource(
-            uri="file:///path/to/docker-compose.yml",
-            name="docker-compose.yml",
-            mimeType="text/yaml"
-        )
-    ]
-```
-
-#### 3. Prompts
+#### 2. Prompts
 
 Prompts are reusable templates:
 
@@ -345,13 +313,6 @@ Tool(
     }
 )
 ```
-
-### Expose More Resources
-
-- Dockerfile contents
-- Container configuration details
-- Volume mappings
-- Network configurations
 
 ### Add More Prompts
 
@@ -471,42 +432,6 @@ Everything looks healthy:
 - Memory usage is well within limits
 - The database has moderate I/O as expected
 - No resource constraints detected
-```
-
-### Configuration Review
-
-#### Reading Docker Compose File
-
-**User:**
-```
-Show me my Docker Compose configuration
-```
-
-**Claude's Response:**
-```
-I'll read your docker-compose.yml file.
-
-[Uses read_docker_compose tool]
-
-Your Docker Compose setup defines 3 services:
-
-1. **web** (nginx:alpine)
-   - Exposes port 8080 → 80
-   - Mounts local html directory
-   - Auto-restart enabled
-
-2. **db** (postgres:15-alpine)
-   - Environment variables for user/password/database
-   - Persistent volume for data storage
-   - Connected to app-network
-
-3. **cache** (redis:7-alpine)
-   - Exposes port 6379
-   - Auto-restart enabled
-   - Connected to app-network
-
-All services are on a shared bridge network (app-network) for inter-container communication.
-The database uses a named volume (postgres-data) for data persistence.
 ```
 
 ### Debugging Workflows
