@@ -19,8 +19,8 @@ A collection of practical, production-quality MCP (Model Context Protocol) serve
 
 ### Step 1: Clone and Verify
 ```bash
-git clone https://github.com/yourusername/mcp-examples.git
-cd mcp-examples
+git clone https://github.com/christancho/python-mcp-servers.git
+cd python-mcp-servers
 python3 verify_setup.py
 ```
 
@@ -214,7 +214,7 @@ Each project includes:
 ## 🏗️ Repository Structure
 
 ```
-mcp-examples/
+python-mcp-servers/
 ├── README.md                          # This file
 ├── LICENSE                            # MIT License
 ├── requirements.txt                   # Shared dependencies
@@ -227,25 +227,22 @@ mcp-examples/
 │
 ├── docker-dev-assistant/              # Project 1: Simple
 │   ├── server.py                     # MCP server (401 LOC)
-│   ├── README.md
+│   ├── README.md                     # Includes example usage
 │   ├── requirements.txt
-│   ├── docker-compose.yml
-│   └── examples/
+│   └── docker-compose.yml            # Mock stack for testing
 │
 ├── personal-knowledge-base/           # Project 2: Intermediate
 │   ├── server.py                     # MCP server (784 LOC)
-│   ├── README.md
+│   ├── README.md                     # Includes example usage
 │   ├── requirements.txt
-│   ├── sample-notes/                 # Demo markdown files
-│   └── examples/
+│   └── sample-notes/                 # Demo markdown files
 │
 └── smart-day-planner/                 # Project 3: Advanced
     ├── server.py                     # MCP server (760 LOC)
-    ├── README.md
+    ├── README.md                     # Includes example usage
     ├── requirements.txt
     ├── .env.example                  # API keys template
-    ├── config.yaml
-    └── examples/
+    └── config.yaml                   # Configuration file
 ```
 
 ---
