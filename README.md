@@ -138,12 +138,11 @@ A practical assistant for managing Docker containers. Query running containers, 
 **What You'll Learn:**
 - MCP server initialization
 - Tool implementation with parameters
-- Resource exposure (reading files)
 - Basic error handling
+- Subprocess management for external commands
 
 **Features:**
-- 4 Tools: docker_ps, docker_logs, docker_stats, read_docker_compose
-- 1 Resource: docker-compose.yml exposure
+- 3 Tools: docker_ps, docker_logs, docker_stats
 - 1 Prompt: debug-container workflow
 
 [→ Go to Docker Dev Assistant](docker-dev-assistant/)
@@ -254,8 +253,7 @@ python-mcp-servers/
 ├── docker-dev-assistant/              # Project 1: Simple
 │   ├── server.py                     # MCP server (401 LOC)
 │   ├── README.md                     # Includes example usage
-│   ├── requirements.txt
-│   └── docker-compose.yml            # Mock stack for testing
+│   └── requirements.txt
 │
 ├── personal-knowledge-base/           # Project 2: Intermediate
 │   ├── server.py                     # MCP server (784 LOC)
