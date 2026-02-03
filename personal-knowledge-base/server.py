@@ -41,7 +41,9 @@ logger = logging.getLogger("personal-knowledge-base")
 server = Server("personal-knowledge-base")
 
 # Global state
-notes_dir: Path = Path(os.getenv("NOTES_DIR", "./sample-notes"))
+# Get the directory where this script lives
+SCRIPT_DIR = Path(__file__).parent
+notes_dir: Path = Path(os.getenv("NOTES_DIR", str(SCRIPT_DIR / "sample-notes")))
 chroma_client: Optional[chromadb.Client] = None
 collection: Optional[chromadb.Collection] = None
 embedding_model: Optional[SentenceTransformer] = None
@@ -118,8 +120,8 @@ def init_chromadb():
     logger.info("Loading embedding model...")
     embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
-    # Initialize ChromaDB
-    chroma_dir = Path("./chroma_db")
+    # Initialize ChromaDB - use directory relative to script location
+    chroma_dir = SCRIPT_DIR / "chroma_db"
     chroma_dir.mkdir(exist_ok=True)
 
     chroma_client = chromadb.Client(Settings(
