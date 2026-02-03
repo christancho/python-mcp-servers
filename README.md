@@ -13,7 +13,7 @@ A collection of practical, production-quality MCP (Model Context Protocol) serve
 ## ⚡ Quick Start (5 Minutes)
 
 ### Prerequisites
-- Python 3.10+
+- **Python 3.11 or 3.12** (recommended - some packages don't support 3.14 yet)
 - Claude Desktop
 - Git
 

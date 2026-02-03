@@ -85,10 +85,10 @@ class Note:
         return {
             "name": self.name,
             "path": str(self.path),
-            "tags": self.tags,
-            "links": self.links,
-            "modified": self.modified.isoformat(),
-            "metadata": self.metadata
+            "tags": ", ".join(self.tags) if self.tags else "",  # Convert list to string
+            "links": ", ".join(self.links) if self.links else "",  # Convert list to string
+            "modified": self.modified.isoformat()
+            # Note: metadata field removed as it may contain non-serializable types
         }
 
 

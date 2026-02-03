@@ -75,7 +75,7 @@ This intermediate MCP project builds on the Docker Dev Assistant foundation and 
 
 ## Prerequisites
 
-- **Python 3.10+**
+- **Python 3.11 or 3.12** (required - Python 3.14 not yet supported by ChromaDB dependencies)
 - **MCP SDK**: `pip install mcp`
 - **ChromaDB**: Vector database
 - **sentence-transformers**: Local embedding model
@@ -86,7 +86,8 @@ This intermediate MCP project builds on the Docker Dev Assistant foundation and 
 1. **Create and activate a virtual environment** (if not already done):
    ```bash
    # From the repository root
-   python3 -m venv venv
+   # Use Python 3.11 (ChromaDB requires 3.11 or 3.12)
+   python3.11 -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
