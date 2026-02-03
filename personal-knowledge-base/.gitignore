@@ -1,0 +1,9 @@
+# ChromaDB data directory
+chroma_db/
+
+# Vector index cache
+.vector_cache/
+
+# Python
+__pycache__/
+*.pyc

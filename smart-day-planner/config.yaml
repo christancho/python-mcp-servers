@@ -1,0 +1,37 @@
+# Smart Day Planner Configuration
+
+# API endpoints
+apis:
+  openweather:
+    base_url: "https://api.openweathermap.org/data/2.5"
+    timeout: 10
+    retry_attempts: 3
+
+  todoist:
+    base_url: "https://api.todoist.com/rest/v2"
+    timeout: 10
+    retry_attempts: 3
+
+# Cache settings
+cache:
+  enabled: true
+  expiration_seconds: 300  # 5 minutes
+  max_entries: 100
+
+# Rate limiting
+rate_limits:
+  openweather:
+    calls_per_minute: 60
+  todoist:
+    calls_per_minute: 450
+
+# Feature flags
+features:
+  weather: true
+  todos: true
+  calendar: false  # Set to true after configuring Google Calendar
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

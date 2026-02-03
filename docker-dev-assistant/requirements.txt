@@ -1,0 +1,4 @@
+# MCP SDK
+mcp>=0.9.0
+
+# No additional dependencies needed - uses standard library subprocess for Docker commands

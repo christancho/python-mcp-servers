@@ -1,0 +1,15 @@
+# MCP SDK
+mcp>=0.9.0
+
+# Vector database for semantic search
+chromadb>=0.4.22
+
+# Local embeddings (no API needed)
+sentence-transformers>=2.3.1
+
+# Markdown parsing
+markdown-it-py>=3.0.0
+python-frontmatter>=1.0.0
+
+# File system monitoring
+watchdog>=3.0.0
