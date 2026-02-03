@@ -83,12 +83,19 @@ This intermediate MCP project builds on the Docker Dev Assistant foundation and 
 
 ## Installation
 
-1. **Navigate to this directory:**
+1. **Create and activate a virtual environment** (if not already done):
+   ```bash
+   # From the repository root
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+2. **Navigate to this directory:**
    ```bash
    cd personal-knowledge-base
    ```
 
-2. **Install dependencies:**
+3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
@@ -99,14 +106,14 @@ This intermediate MCP project builds on the Docker Dev Assistant foundation and 
    - Sentence Transformers (includes the embedding model, ~90MB)
    - Supporting libraries
 
-3. **Prepare your notes:**
+4. **Prepare your notes:**
 
    The server includes sample notes in `sample-notes/`. You can:
    - Use the sample notes to test
    - Point to your own notes directory (see Configuration below)
    - Create a new notes directory
 
-4. **Test the server:**
+5. **Test the server:**
    ```bash
    python3 server.py
    ```
@@ -136,12 +143,17 @@ This intermediate MCP project builds on the Docker Dev Assistant foundation and 
    {
      "mcpServers": {
        "personal-knowledge-base": {
-         "command": "python3",
-         "args": ["/absolute/path/to/personal-knowledge-base/server.py"]
+         "command": "/absolute/path/to/python-mcp-servers/venv/bin/python3",
+         "args": ["/absolute/path/to/python-mcp-servers/personal-knowledge-base/server.py"]
        }
      }
    }
    ```
+
+   **⚠️ Important**:
+   - **Must use venv Python** - The directory is named `venv` (not `.venv`)
+   - Use absolute paths - No `~/` or relative paths
+   - Example: `/Users/yourname/python-mcp-servers/venv/bin/python3`
 
 3. **Optional: Custom notes directory:**
 
@@ -151,8 +163,8 @@ This intermediate MCP project builds on the Docker Dev Assistant foundation and 
    {
      "mcpServers": {
        "personal-knowledge-base": {
-         "command": "python3",
-         "args": ["/absolute/path/to/personal-knowledge-base/server.py"],
+         "command": "/absolute/path/to/python-mcp-servers/venv/bin/python3",
+         "args": ["/absolute/path/to/python-mcp-servers/personal-knowledge-base/server.py"],
          "env": {
            "NOTES_DIR": "/path/to/your/notes"
          }

@@ -54,17 +54,24 @@ This is the foundational project in the MCP examples series. It demonstrates:
 
 ## Installation
 
-1. **Navigate to this directory:**
+1. **Create and activate a virtual environment** (if not already done):
+   ```bash
+   # From the repository root
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+2. **Navigate to this directory:**
    ```bash
    cd docker-dev-assistant
    ```
 
-2. **Install dependencies:**
+3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Test the server:**
+4. **Test the server:**
    ```bash
    python3 server.py
    ```
@@ -91,14 +98,18 @@ This is the foundational project in the MCP examples series. It demonstrates:
    {
      "mcpServers": {
        "docker-dev-assistant": {
-         "command": "python3",
-         "args": ["/absolute/path/to/docker-dev-assistant/server.py"]
+         "command": "/absolute/path/to/python-mcp-servers/venv/bin/python3",
+         "args": ["/absolute/path/to/python-mcp-servers/docker-dev-assistant/server.py"]
        }
      }
    }
    ```
 
-   **Important**: Replace `/absolute/path/to/` with the actual path on your system.
+   **⚠️ Important**:
+   - Replace `/absolute/path/to/` with the actual path on your system
+   - **Must use venv Python** - The directory is named `venv` (not `.venv`)
+   - Use absolute paths - No `~/` or relative paths
+   - Example: `/Users/yourname/python-mcp-servers/venv/bin/python3`
 
 3. **Restart Claude Desktop** (fully quit and reopen)
 

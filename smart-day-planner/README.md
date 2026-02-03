@@ -72,14 +72,22 @@ This advanced project showcases production MCP patterns:
 
 ## Installation
 
-### 1. Install Dependencies
+### 1. Create and Activate Virtual Environment
+
+```bash
+# From the repository root (if not already done)
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### 2. Install Dependencies
 
 ```bash
 cd smart-day-planner
 pip install -r requirements.txt
 ```
 
-### 2. Get API Keys
+### 3. Get API Keys
 
 **OpenWeatherMap (Free):**
 1. Go to [https://openweathermap.org/api](https://openweathermap.org/api)
@@ -95,7 +103,7 @@ pip install -r requirements.txt
 4. Find "API token" and copy it
 5. Free tier: Generous limits for personal use
 
-### 3. Configure Environment Variables
+### 4. Configure Environment Variables
 
 Copy the example file and add your keys:
 
@@ -113,7 +121,7 @@ DEFAULT_LOCATION=Your City Name
 
 **Security Note:** Never commit `.env` to version control! It's in `.gitignore` by default.
 
-### 4. Test the Server
+### 5. Test the Server
 
 ```bash
 python3 server.py
@@ -142,8 +150,8 @@ INFO:smart-day-planner:Cache enabled: True
    {
      "mcpServers": {
        "smart-day-planner": {
-         "command": "python3",
-         "args": ["/absolute/path/to/smart-day-planner/server.py"],
+         "command": "/absolute/path/to/python-mcp-servers/venv/bin/python3",
+         "args": ["/absolute/path/to/python-mcp-servers/smart-day-planner/server.py"],
          "env": {
            "OPENWEATHER_API_KEY": "your_key_here",
            "TODOIST_API_TOKEN": "your_token_here",
@@ -154,7 +162,11 @@ INFO:smart-day-planner:Cache enabled: True
    }
    ```
 
-   **Alternative:** Environment variables can also be loaded from `.env` file.
+   **⚠️ Important**:
+   - **Must use venv Python** - The directory is named `venv` (not `.venv`)
+   - Use absolute paths - No `~/` or relative paths
+   - Example: `/Users/yourname/python-mcp-servers/venv/bin/python3`
+   - Environment variables can also be loaded from `.env` file instead of config
 
 3. **Restart Claude Desktop**
 

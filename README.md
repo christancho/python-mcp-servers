@@ -17,21 +17,38 @@ A collection of practical, production-quality MCP (Model Context Protocol) serve
 - Claude Desktop
 - Git
 
-### Step 1: Clone and Verify
+### Step 1: Clone the Repository
 ```bash
 git clone https://github.com/christancho/python-mcp-servers.git
 cd python-mcp-servers
-python3 verify_setup.py
 ```
 
-### Step 2: Install Dependencies
+### Step 2: Create Virtual Environment
 ```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate it
+# On macOS/Linux:
+source venv/bin/activate
+
+# On Windows:
+# venv\Scripts\activate
+```
+
+Your prompt should now show `(venv)` indicating the virtual environment is active.
+
+### Step 3: Install Dependencies
+```bash
+# Install shared dependencies
 pip install -r requirements.txt
+
+# Install project-specific dependencies
 cd docker-dev-assistant
 pip install -r requirements.txt
 ```
 
-### Step 3: Test the Server
+### Step 4: Test the Server
 ```bash
 python3 server.py
 ```
@@ -43,7 +60,7 @@ INFO:docker-dev-assistant:Starting Docker Dev Assistant MCP Server
 
 Press Ctrl+C to stop.
 
-### Step 4: Configure Claude Desktop
+### Step 5: Configure Claude Desktop
 
 **Find your config file:**
 - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
@@ -56,23 +73,32 @@ Press Ctrl+C to stop.
 {
   "mcpServers": {
     "docker-dev-assistant": {
-      "command": "python3",
-      "args": ["/full/path/to/mcp-examples/docker-dev-assistant/server.py"]
+      "command": "/full/path/to/python-mcp-servers/venv/bin/python3",
+      "args": ["/full/path/to/python-mcp-servers/docker-dev-assistant/server.py"]
     }
   }
 }
 ```
 
-**Find your full path:**
+**Find your full paths:**
 ```bash
-cd docker-dev-assistant && pwd
+# Get the venv Python path
+cd python-mcp-servers
+pwd  # Use this path + /venv/bin/python3 for command
+
+# Example: /Users/yourname/python-mcp-servers/venv/bin/python3
 ```
 
-### Step 5: Restart Claude Desktop
+**⚠️ Critical:**
+- **Must use the venv Python** - Don't use system `python3` or it won't find the mcp package
+- **Use `venv` not `.venv`** - The directory is named `venv` (without the dot)
+- **Use absolute paths** - No `~/` or relative paths
+
+### Step 6: Restart Claude Desktop
 
 Fully quit and reopen Claude Desktop.
 
-### Step 6: Test It!
+### Step 7: Test It!
 
 Open Claude Desktop and try:
 ```
@@ -251,21 +277,21 @@ python-mcp-servers/
 
 **Q: Can I use all three servers at once?**
 
-Yes! Add all three to your Claude Desktop config:
+Yes! Add all three to your Claude Desktop config (use your venv Python path):
 ```json
 {
   "mcpServers": {
     "docker-dev-assistant": {
-      "command": "python3",
-      "args": ["/path/to/docker-dev-assistant/server.py"]
+      "command": "/path/to/python-mcp-servers/venv/bin/python3",
+      "args": ["/path/to/python-mcp-servers/docker-dev-assistant/server.py"]
     },
     "personal-knowledge-base": {
-      "command": "python3",
-      "args": ["/path/to/personal-knowledge-base/server.py"]
+      "command": "/path/to/python-mcp-servers/venv/bin/python3",
+      "args": ["/path/to/python-mcp-servers/personal-knowledge-base/server.py"]
     },
     "smart-day-planner": {
-      "command": "python3",
-      "args": ["/path/to/smart-day-planner/server.py"]
+      "command": "/path/to/python-mcp-servers/venv/bin/python3",
+      "args": ["/path/to/python-mcp-servers/smart-day-planner/server.py"]
     }
   }
 }
